@@ -49,49 +49,48 @@
         </a>
        <ul>
     <li>
-        <a href="#" class="has-arrow"><i class="bi bi-clock"></i>Awaiting Payments</a>
+      <a href="{{ route('awaiting-shipment.index') }}" class="has-arrow">
+        <i class="bi bi-clock"></i> Awaiting Shipment
+      </a>
         <!-- <ul>
             <li><a href="#" class="has-arrow"><i class="bi bi-gear"></i>Manage Orders</a></li>
         </ul> -->
     </li>
-    <li>
-        <a href="#" class="has-arrow"><i class="bi bi-truck"></i>On Hold</a>
+ <!--    <li>
+        <a href="#" class="has-arrow"><i class="bi bi-truck"></i>On Hold</a> -->
         <!-- <ul>
             <li><a href="#" class="has-arrow"><i class="bi bi-gear"></i>Manage Orders</a></li>
         </ul> -->
-    </li>
-    <li>
-        <a href="#" class="has-arrow"><i class="bi bi-check-circle"></i>Awaiting Shipment</a>
+    <!-- </li> -->
+<!--     <li>
+        <a href="#" class="has-arrow"><i class="bi bi-check-circle"></i>Awaiting Shipment</a> -->
         <!-- <ul>
             <li><a href="#" class="has-arrow"><i class="bi bi-gear"></i>Manage Orders</a></li>
         </ul> -->
-    </li>
-    <li>
-        <a href="#" class="has-arrow"><i class="bi bi-check-circle"></i>Shipped</a>
+    <!-- </li> -->
+      <li>
+        <a href="{{ route('shipped-orders.index') }}" class="has-arrow"><i class="bi bi-check-circle"></i>Shipped</a>
+      </li> 
+<!--     <li>
+        <a href="#" class="has-arrow"><i class="bi bi-check-circle"></i>Cancelled</a> -->
         <!-- <ul>
             <li><a href="#" class="has-arrow"><i class="bi bi-gear"></i>Manage Orders</a></li>
         </ul> -->
-    </li>
-    <li>
-        <a href="#" class="has-arrow"><i class="bi bi-check-circle"></i>Cancelled</a>
+    <!-- </li> -->
+    <!-- <li>
+        <a href="#" class="has-arrow"><i class="bi bi-check-circle"></i>Orders Alerts</a> -->
         <!-- <ul>
             <li><a href="#" class="has-arrow"><i class="bi bi-gear"></i>Manage Orders</a></li>
         </ul> -->
-    </li>
-    <li>
-        <a href="#" class="has-arrow"><i class="bi bi-check-circle"></i>Orders Alerts</a>
-        <!-- <ul>
-            <li><a href="#" class="has-arrow"><i class="bi bi-gear"></i>Manage Orders</a></li>
-        </ul> -->
-    </li>
+    <!-- </li> -->
 </ul>
     </li>
     <li>
-        <a href="javascript:;" class="has-arrow">
+      <!--   <a href="javascript:;" class="has-arrow">
             <div class="parent-icon"><i class="bi bi-file-earmark-break-fill"></i></div>
             <div class="menu-title">Page</div>
-        </a>
-        <ul>
+        </a> -->
+      <!--   <ul>
             <li>
                 <a href="{{ route('about.us.page') }}"><i class="bi bi-file-earmark-person"></i>About Us</a>
             </li>
@@ -101,18 +100,18 @@
             <li>
                 <a href="{{ route('terms.of.service.page') }}"><i class="bi bi-book"></i>Terms of Service</a>
             </li>
-        </ul>
+        </ul> -->
     </li>
     @endif
 
     @if (Auth::user()->role == "Super Admin" || Auth::user()->role == "Admin")
-    <li class="menu-label">Admin Panel</li>
+   <!--  <li class="menu-label">Admin Panel</li>
     <li>
         <a href="{{ route('branch.index') }}">
             <div class="parent-icon"><i class="bi bi-shop"></i></div>
             <div class="menu-title">Branch</div>
         </a>
-    </li>
+    </li> -->
     <!-- <li>
         <a href="{{ route('all.manager') }}">
             <div class="parent-icon"><i class="bi bi-people-fill"></i></div>

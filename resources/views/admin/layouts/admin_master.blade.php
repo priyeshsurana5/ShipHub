@@ -202,7 +202,9 @@
                     <img src="{{ asset('admin') }}/images/logo-icon.png" class="logo-icon" alt="logo icon">
                 </div>
                 <div>
-                    <a href="{{ route('dashboard') }}"><h4 class="logo-text">{{ env('APP_NAME') }}</h4></a>
+                    <a href="{{ route('dashboard') }}"><h4 class="logo-text"> <img src="https://www.5core.com/cdn/shop/files/1500px_3x_acec3a4d-39c5-41e8-99b2-9be0419d70bc.png?v=1731097909&width=340" 
+             alt="{{ env('APP_NAME') }} Logo" 
+             style="height: 40px; width: auto; object-fit: contain; border-radius: 6px;"></h4></a>
                 </div>
                 <div class="toggle-icon ms-auto">
                     <i class="bi bi-chevron-double-left"></i>

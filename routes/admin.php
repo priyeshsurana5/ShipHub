@@ -18,9 +18,13 @@ use App\Http\Controllers\Admin\SendCourierController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\StoreConnectController;
+use App\Http\Controllers\Admin\AwaitingShipmentOrderController;
+use App\Http\Controllers\Admin\ShipOrderController;
+use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\UnitController;
 use Illuminate\Support\Facades\Route;
+
 
 Route::prefix('admin')->group(function () {
     Route::middleware('guest')->group(function () {
@@ -44,6 +48,23 @@ Route::prefix('admin')->group(function () {
 
         // Super Admin
         Route::middleware('role:Super Admin')->group(function () {
+
+
+            // order
+            Route::get('/awaiting-shipment', [AwaitingShipmentOrderController::class, 'index'])
+    ->name('awaiting-shipment.index');
+            Route::get('/admin/orders/awaiting-shipment/data', [AwaitingShipmentOrderController::class, 'getAwaitingShipmentOrders'])->name('orders.awaiting.data');
+            Route::post('/orders/create-print-labels', [AwaitingShipmentOrderController::class, 'createPrintLabels'])->name('orders.create.print.labels');
+
+            // shipped
+            Route::get('/shipped-orders', [ShipOrderController::class, 'index'])
+            ->name('shipped-orders.index');
+            Route::get('/admin/orders/shipped-orders/data', [ShipOrderController::class, 'getShippedOrders'])
+                ->name('orders.shipped.data');
+            // shipped
+            Route::post('/orders/get-rate', [AwaitingShipmentOrderController::class, 'getRate'])
+    ->name('orders.get.rate');
+            // order
             Route::get('/default-setting', [SettingController::class, 'defaultSetting'])->name('default.setting');
             Route::get('/settings/stores', [StoreConnectController::class, 'stores'])->name('settings.stores');
             Route::post('/default/setting/update/{id}', [SettingController::class, 'defaultSettingUpdate'])->name('default.setting.update');
@@ -70,6 +91,12 @@ Route::prefix('admin')->group(function () {
             Route::get('/report-income', [ReportController::class, 'reportIncome'])->name('report.income');
             Route::get('/report-income-print', [ReportController::class, 'reportIncomePrint'])->name('report.income.print');
             Route::post('/report-income-export', [ReportController::class, 'reportIncomeExport'])->name('report.income.export');
+
+            Route::get('/orders', [AdminOrderController::class, 'index'])->name('admin.orders.index');
+            Route::get('/orders/create', [AdminOrderController::class, 'create'])->name('admin.orders.create');
+            Route::post('/orders', [AdminOrderController::class, 'store'])->name('admin.orders.store');
+            Route::get('/orders/fetch', [AdminOrderController::class, 'fetchOrders'])->name('admin.orders.fetch');
+            Route::get('/integrations', [AdminOrderController::class, 'integrations'])->name('admin.integrations.index');
         });
 
         // Admin
