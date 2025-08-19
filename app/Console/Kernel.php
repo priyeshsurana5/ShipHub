@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('reverb:sync-orders')->everyFiveMinutes();
+        $schedule->command('ebay:sync-orders')->everyFiveMinutes();
     }
 
     /**

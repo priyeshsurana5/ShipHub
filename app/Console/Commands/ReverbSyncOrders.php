@@ -39,8 +39,6 @@ class ReverbSyncOrders extends Command
                 'Authorization' => 'Bearer ' . $token,
                 'Accept' => 'application/hal+json',
                 'Accept-Version' => '3.0',
-                // Optional Cloudflare cookie (comment out if not needed)
-                // 'Cookie' => '__cf_bm=gBCMQMGk5IYiuqTOk3zULeJ5JWi2qoT92gVK14YdQ1I-1755543120-1.0.1.1-RvCNmmZSfqpTh.RsaAs5f38Jlj72uJ2MSZ.oUE3KWr.56Mh3hr2UEWsY7xHaHp3Eqf1.imW_busnB56UYDdh5kM.2AdiD29CEws_qi609Ro',
             ])->get($url, [
                 'updated_start_date' => $startOfDay,
                 'updated_end_date' => $endOfDay,
@@ -126,14 +124,10 @@ class ReverbSyncOrders extends Command
                         'quantity' => isset($order['quantity']) ? $order['quantity'] : 1,
                         'raw_data' => json_encode($order),
                     ];
-
-                    // Log data to be saved for order
                     Log::info('Data to Save for Order ' . $orderNumber, [
                         'recipient_name' => $dataToSave['recipient_name'],
                         'data' => $dataToSave,
                     ]);
-
-                    // Check for duplicate order_number with different UUID
                     $existingOrder = Order::where('marketplace', 'reverb')
                         ->where('order_number', $orderNumber)
                         ->first();
@@ -144,7 +138,6 @@ class ReverbSyncOrders extends Command
                             'existing_uuid' => $existingOrder->marketplace_order_id,
                             'new_uuid' => $orderUuid,
                         ]);
-                        // Update existing order instead of skipping
                         $existingOrder->update($dataToSave);
                         $this->info("✅ Order {$orderNumber} updated");
                         $orderModel = $existingOrder;
@@ -159,8 +152,6 @@ class ReverbSyncOrders extends Command
                         );
                         $this->info("✅ Order {$orderNumber} synced");
                     }
-
-                    // Save order item
                     $itemData = [
                         'order_id' => $orderModel->id,
                         'order_number' => $orderNumber,
@@ -173,17 +164,15 @@ class ReverbSyncOrders extends Command
                         'quantity_shipped' => (isset($order['shipment_status']) && in_array($order['shipment_status'], ['shipped', 'delivered'])) ? (isset($order['quantity']) ? $order['quantity'] : 1) : 0,
                         'unit_price' => isset($order['amount_product']['amount']) ? $order['amount_product']['amount'] : 0,
                         'item_tax' => isset($order['amount_tax']['amount']) ? $order['amount_tax']['amount'] : 0,
-                        'promotion_discount' => 0, // Not available in Reverb API
+                        'promotion_discount' => 0, 
                         'currency' => isset($order['total']['currency']) ? $order['total']['currency'] : 'USD',
-                        'is_gift' => false, // Not available
-                        'weight' => null, // Not available
-                        'weight_unit' => null, // Not available
-                        'dimensions' => null, // Not available
+                        'is_gift' => false, 
+                        'weight' => null, 
+                        'weight_unit' => null, 
+                        'dimensions' => null,
                         'marketplace' => 'reverb',
-                        'raw_data' => json_encode($order), // Store full order data for simplicity
+                        'raw_data' => json_encode($order), 
                     ];
-
-                    // Log item data
                     Log::info('Data to Save for Order Item ' . $orderNumber, [
                         'order_item_id' => $itemData['order_item_id'],
                         'sku' => $itemData['sku'],
